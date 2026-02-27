@@ -2,6 +2,70 @@
 
 > **Status:** 🔴 Próximo passo | **Fase atual do projeto**
 
+---
+
+## 💻 Configuração do Seu Hardware (Hoffmannss)
+
+| Componente | Especificação | Avaliação |
+|---|---|---|
+| CPU | Intel i5-9400F (6 cores / 6 threads) | ✅ Bom para offload |
+| RAM | 32 GB DDR4 | ✅ Ótimo |
+| GPU | NVIDIA GTX 1660 (6 GB VRAM GDDR6) | ⚠️ Limite crítico: 6 GB |
+| Arquitetura GPU | Turing (CC 7.5) | ✅ Suportada pelo Ollama |
+
+### 🎯 Modelo Recomendado para Você
+
+> **`mistral:7b-instruct-q4_K_M`** — Melhor equilíbrio qualidade + velocidade para GTX 1660[web:17]
+
+**Por quê este modelo?**
+- Tamanho: ~4.1 GB → **cabe nos seus 6 GB de VRAM com folga**
+- Velocidade medida em GTX 1660: **~40 tokens/segundo**[web:17]
+- Qualidade: excelente para português, raciocínio, resumos e conversa
+- Quantização `q4_K_M`: melhor balanço entre qualidade e VRAM[web:5]
+
+### 🥇 Rankíng para seu hardware
+
+| # | Modelo | Tamanho | Velocidade (GTX 1660) | Observação |
+|---|---|---|---|---|
+| 1️⃣ | `mistral:7b-instruct-q4_K_M` | ~4.1 GB | ~40 tok/s | **RECOMENDADO** |
+| 2️⃣ | `llama3.2:3b` | ~2.0 GB | ~38 tok/s | Mais leve, respostas menores |
+| 3️⃣ | `qwen2.5:7b` | ~4.7 GB | ~18 tok/s | Bom em português |
+| 4️⃣ | `llama3.1:8b` | ~4.9 GB | ~16 tok/s | Ocupa quase 100% da VRAM |
+| ❌ | `deepseek-r1:8b` | ~4.9 GB | ~16 tok/s | Lento, prefira outros |
+
+> ⚠️ Modelos acima de 5 GB começam a usar CPU também, ficando mais lentos.
+
+### ✅ Comando para baixar AGORA
+
+```bash
+# Modelo principal recomendado:
+ollama pull mistral:7b-instruct-q4_K_M
+
+# Opcional: modelo leve de backup (muito rápido):
+ollama pull llama3.2:3b
+
+# Testar após download:
+ollama run mistral:7b-instruct-q4_K_M
+```
+
+### 🔧 Garantir que Ollama usa a GPU (Não a CPU)
+
+```bash
+# Verificar se GTX 1660 foi detectada:
+ollama ps
+# Deve mostrar: 100% GPU
+
+# Se estiver usando CPU ao invés de GPU, defina as camadas:
+# No Windows, adicione esta variável de ambiente:
+# OLLAMA_GPU_LAYERS=35
+```
+
+---
+
+# 🧠 FASE 1 — O Cérebro: LLM Local
+
+> **Status:** 🔴 Próximo passo | **Fase atual do projeto**
+
 Este guia ensina como instalar, configurar e conectar um modelo de linguagem (LLM) rodando 100% no seu computador, sem depender de APIs externas pagas.
 
 ---
